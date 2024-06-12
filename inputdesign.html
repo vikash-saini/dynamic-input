@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Scrolling Input Box</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #aisearch {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            position: relative;
+        }
+        #aisearch::placeholder {
+            color: grey;
+            white-space: nowrap;
+            pointer-events: none;
+            transform: translateY(50%);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .enter-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            pointer-events: none;
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #cb4040;
+            border-color: #cb4040;
+            background-color: #cb4040;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="aisearch" placeholder="" >
+        <button class="enter-icon"><span class="fa fa-long-arrow-right"></span></button>
+    </div>
+    <script>
+        const placeholders = [
+            'How to build a recommendation engine?',
+            'How to build an Anomaly Detection engine?',
+            'How to build a Churn Prediction engine?',
+            'How to build a Semantic Web Scraper engine?',
+            'How to build a deduplication engine?',
+        ];
+
+        let placeholderIndex = 0;
+        const searchInput = document.getElementById('aisearch');
+
+        function changePlaceholder() {
+            const style = document.createElement('style');
+        style.innerHTML = `
+            #aisearch::placeholder {               
+                transform: translateY(10px);
+                opacity: 0;               
+            }
+        `;
+        document.head.appendChild(style);
+            searchInput.setAttribute('placeholder', placeholders[placeholderIndex]);
+            placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+
+            setTimeout(() => {
+                style.innerHTML = `#aisearch::placeholder {
+                                    opacity: 1;
+                                    transform: translateY(0px); 
+                                    }
+                                `;
+               
+                // index = (index + 1) % placeholders.length;
+            }, 500);
+        }
+
+        // Change placeholder every 3 seconds
+        setInterval(changePlaceholder, 3000);
+        changePlaceholder();
+        // Add CSS for placeholder
+        
+    </script>
+</body>
+</html>

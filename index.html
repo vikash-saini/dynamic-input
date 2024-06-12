@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Scrolling Input Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            margin: 0;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            position: relative;
+        }
+
+        .scrolling-placeholder {
+            position: absolute;
+            top: 30%;
+            left: 20px;
+            transform: translateY(50%);
+            color: grey;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0;
+        }
+
+        .search-input:focus + .scrolling-placeholder {
+            opacity: 0;
+        }
+        .enter-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            pointer-events: none;
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #cb4040;
+            border-color: #cb4040;
+            background-color: #cb4040;
+        }
+
+.abc h1{
+    position: absolute; 
+    animation: animateFromBottom 2s ease-out infinite;
+    bottom: -100%;
+    }
+
+    @keyframes animateFromBottom {
+        to {
+            bottom: 50%;
+            transform: translate(0%, 50%);
+        }
+    }
+
+    /* .search-input::-webkit-input-placeholder { transform: translateY(50%); }
+.search-input::-moz-placeholder { transform: translateY(50%); }
+.search-input:-ms-input-placeholder { transform: translateY(50%); } */
+
+
+
+.search .fa-search {left: auto; right: 10px;}
+
+    </style>
+</head>
+<body>
+
+    <!-- <div class="abc">
+        <h1>vvvvv</h1>
+    </div> -->
+
+   
+<div class="search-container">
+    <input type="text" class="search-input" id="search-input">
+    <button class="enter-icon"><span class="fa fa-long-arrow-right"></span></button>
+    <div class="scrolling-placeholder" id="scrolling-placeholder"></div>
+</div>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const placeholders = [
+            'How to build a recommendation engine?',
+            'How to build an Anomaly Detection engine?',
+            'How to build a Churn Prediction engine?',
+            'How to build a Semantic Web Scraper engine?',
+            'How to build a deduplication engine?',
+        ];
+
+        let index = 0;
+        const placeholderElement = document.getElementById('scrolling-placeholder');
+        const searchInput = document.getElementById('search-input');
+
+        function updatePlaceholder() {
+            placeholderElement.style.opacity = 0;
+            placeholderElement.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                placeholderElement.textContent = placeholders[index];
+                placeholderElement.style.opacity = 1;
+                placeholderElement.style.transform = 'translateY(0)';
+                // searchInput.setAttribute('placeholder', placeholders[index]);
+                index = (index + 1) % placeholders.length;
+            }, 500);
+        }
+
+        setInterval(updatePlaceholder, 2000);
+        updatePlaceholder();
+       
+    });
+    
+</script>
+
+</body>
+</html>
+
+
+
+
